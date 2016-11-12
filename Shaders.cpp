@@ -2,11 +2,11 @@
 
 #include <fstream>
 #include <sstream>
-#include <string>
 
 #include <GL/glew.h>
 
 #include "Error.hpp"
+#include "Window.hpp"
 
 
 std::shared_ptr<Shaders> Shaders::CreateAndLoad() {
@@ -41,27 +41,46 @@ void Shaders::Load() {
     mFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     mProgram = glCreateProgram();
 
-    std::ifstream vertexFile("Vertex.glsl");
-    if (!vertexFile.is_open()) {
-        THROW_ERROR("Cannot open vertex shader file");
+    #pragma omp parallel sections shared(mVertexShader, mFragmentShader)
+    {
+        #pragma omp section
+        {
+            std::ifstream vertexFile("Vertex.glsl");
+            if (!vertexFile.is_open()) {
+                THROW_ERROR("Cannot open vertex shader file");
+            }
+
+            std::stringstream vertexStream;
+            vertexStream << vertexFile.rdbuf();
+            std::string vertexSource = vertexStream.str();
+            const char *vertexSourcePtr = vertexSource.c_str();
+
+            #pragma omp critical
+            {
+                Window::GetSingleton()->MakeContextCurrent();
+                glShaderSource(mVertexShader, 1, &vertexSourcePtr, nullptr);
+            }
+        }
+
+        #pragma omp section
+        {
+            std::ifstream fragmentFile("Fragment.glsl");
+            if (!fragmentFile.is_open()) {
+                THROW_ERROR("Cannot open fragment shader file");
+            }
+
+            std::stringstream fragmentStream;
+            fragmentStream << fragmentFile.rdbuf();
+            std::string fragmentSource = fragmentStream.str();
+            const char *fragmentSourcePtr = fragmentSource.c_str();
+
+            #pragma omp critical
+            {
+                Window::GetSingleton()->MakeContextCurrent();
+                glShaderSource(mFragmentShader, 1, &fragmentSourcePtr, nullptr);
+            }
+        }
     }
-
-    std::ifstream fragmentFile("Fragment.glsl");
-    if (!fragmentFile.is_open()) {
-        THROW_ERROR("Cannot open fragment shader file");
-    }
-
-    std::stringstream vertexStream;
-    vertexStream << vertexFile.rdbuf();
-    std::string vertexSource = vertexStream.str();
-    const char* vertexSourcePtr = vertexSource.c_str();
-    glShaderSource(mVertexShader, 1, &vertexSourcePtr, nullptr);
-
-    std::stringstream fragmentStream;
-    fragmentStream << fragmentFile.rdbuf();
-    std::string fragmentSource = fragmentStream.str();
-    const char* fragmentSourcePtr = fragmentSource.c_str();
-    glShaderSource(mFragmentShader, 1, &fragmentSourcePtr, nullptr);
 
     glCompileShader(mVertexShader);
     glCompileShader(mFragmentShader);
