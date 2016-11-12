@@ -1,0 +1,35 @@
+#pragma once
+
+#include <string>
+
+
+/**
+ * A C++ exception. Throw it in case of an error and it will record a message, the file name
+ * and the line number. Neat.
+ */
+
+
+class Error {
+
+public:
+
+    Error(std::string error, std::string file, unsigned int line);
+
+    std::string GetMessage() const;
+    const std::string &GetError() const;
+    const std::string &GetFile() const;
+    const unsigned int &GetLine() const;
+
+private:
+
+    const std::string mError;
+    const std::string mFile;
+    const unsigned int mLine = 0;
+
+};
+
+
+/**
+ * Helpful macro for throwing proper errors.
+ */
+#define THROW_ERROR(error) throw Error(error, __FILE__, __LINE__)

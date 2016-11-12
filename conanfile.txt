@@ -1,0 +1,8 @@
+[requires]
+glfw/3.2@R3v3nX/testing
+glew/1.13.0@coding3d/stable
+glm/0.9.8.0@TimSimpson/testing
+
+
+[generators]
+cmake
