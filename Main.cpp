@@ -6,12 +6,14 @@
 #include "Window.hpp"
 #include "Input.hpp"
 #include "Shaders.hpp"
+#include "Texture.hpp"
 #include "FullscreenQuad.hpp"
 
 
 int main() {
     auto window = Window::Create(800, 600, "Raytracer - OpenMP / MPI");
     Shaders::CreateAndLoad();
+    Texture::Create();
     auto quad = FullscreenQuad::Create();
 
     while (true) {
