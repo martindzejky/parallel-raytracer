@@ -18,6 +18,12 @@ std::shared_ptr<Shaders> Shaders::CreateAndLoad() {
     return shaders;
 }
 
+void Shaders::Attribute(std::string name, int stride, int offset) {
+    GLuint pos = (GLuint) glGetAttribLocation(mProgram, name.c_str());
+    glVertexAttribPointer(pos, 2, GL_FLOAT, GL_FALSE, stride, (const void *) offset);
+    glEnableVertexAttribArray(pos);
+}
+
 Shaders::~Shaders() {
     if (mProgram) {
         glDeleteProgram(mProgram);

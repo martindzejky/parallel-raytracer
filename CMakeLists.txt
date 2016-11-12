@@ -21,6 +21,7 @@ set(CMAKE_SKIP_RPATH 0)
 # project files
 set(SOURCE_FILES
     Error.cpp
+    FullscreenQuad.cpp
     Input.cpp
     Main.cpp
     Shaders.cpp

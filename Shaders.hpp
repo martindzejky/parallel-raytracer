@@ -20,6 +20,8 @@ public:
 
     static std::shared_ptr<Shaders> CreateAndLoad();
 
+    void Attribute(std::string name, int stride, int offset);
+
     ~Shaders();
 
 
