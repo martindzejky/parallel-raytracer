@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include "Window.hpp"
 #include "Input.hpp"
 #include "Shaders.hpp"
@@ -7,19 +9,23 @@
 
 
 int main() {
-    auto window = Window::Create(800, 600, "Raytracer - OpenMP / MPI");
+    auto window = Window::Create(600, 450, "Raytracer - OpenMP / MPI");
     Shaders::CreateAndLoad();
     Texture::Create();
     auto quad = FullscreenQuad::Create();
-
     auto raytracer = Raytracer::Create();
-    raytracer->RenderOnTexture();
 
-    while (true) {
+    auto start = std::chrono::high_resolution_clock::now();
+    while (!window->IsClosed()) {
         window->PollEvents();
         if (Input::IsKeyPressed(Input::Key::Escape)) {
+            window->Close();
             break;
         }
+
+        auto timestamp = std::chrono::high_resolution_clock::now();
+        raytracer->RenderOnTexture(
+            std::chrono::duration_cast<std::chrono::milliseconds>(timestamp - start).count() / 1000.f);
 
         window->Clear();
         quad->Render();

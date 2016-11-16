@@ -22,9 +22,6 @@ public:
     static std::shared_ptr<Window> Create(unsigned int width, unsigned int height, std::string title,
                                           bool fullscreen = false);
 
-    static std::shared_ptr<Window> CreateHidden();
-    static void Destroy();
-
     void UpdateViewport();
     void SetViewport(int width, int height);
     void MakeContextCurrent();

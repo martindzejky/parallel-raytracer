@@ -25,27 +25,6 @@ std::shared_ptr<Window> Window::Create(unsigned int width, unsigned int height, 
     return window;
 }
 
-std::shared_ptr<Window> Window::CreateHidden() {
-    if (Window::GetSingleton()) {
-        THROW_ERROR("One window already exists");
-    }
-
-    PreInit();
-
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    std::shared_ptr<Window> window(new Window());
-    window->mGlfwWindow = glfwCreateWindow(400, 300, "", nullptr, nullptr);
-
-    PostInit(window->mGlfwWindow);
-
-    SetSingleton(window);
-    return window;
-}
-
-void Window::Destroy() {
-    SetSingleton(std::shared_ptr<Window>());
-}
-
 void Window::UpdateViewport() {
     int width, height;
     GetSize(width, height);
@@ -82,7 +61,7 @@ void Window::DrawElements(unsigned int count) {
 }
 
 void Window::GetSize(int &width, int &height) const {
-    glfwGetFramebufferSize(mGlfwWindow, &width, &height);
+    glfwGetWindowSize(mGlfwWindow, &width, &height);
 }
 
 bool Window::IsClosed() const {
