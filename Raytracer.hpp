@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/vec3.hpp>
 #include "Singleton.hpp"
 
 
@@ -15,8 +16,15 @@ public:
 
     static std::shared_ptr<Raytracer> Create();
 
-    void RenderOnTexture();
+    void RenderOnTexture() const;
 
+
+private:
+
+    glm::vec3 TracePixel(const glm::vec2 &uv, float aspectRatio, float time) const;
+    void MakeRay(float time, const glm::vec2 &uvNorm, float cameraOffset, float cameraHeight,
+                 const glm::vec3 &cameraTarget, glm::vec3 &rayOrigin, glm::vec3 &rayDirection) const;
+    glm::vec3 ShootRay(const glm::vec3 &rayOrigin, const glm::vec3 &rayDirection) const;
 };
 
 
