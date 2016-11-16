@@ -66,7 +66,7 @@ glm::vec3 Raytracer::ShootRay(float time, const glm::vec3 &rayOrigin, const glm:
     for (auto i = 0; i < 256; ++i) {
         glm::vec3 point = rayOrigin + rayDirection * hitDistance;
         Object object = Object::None;
-        float distance = Map(time, point, object);;
+        float distance = Map(time, point, object);
 
         if (distance < .00001f) {
             hitPoint = point;
@@ -92,7 +92,7 @@ glm::vec3 Raytracer::ShootRay(float time, const glm::vec3 &rayOrigin, const glm:
             specular = 1.f;
             break;
         case Object::BatteryCore:
-            hitColor = glm::vec3(.4f, 1, .45f);
+            hitColor = glm::vec3(.2f, 1, .25f);
             break;
     }
 

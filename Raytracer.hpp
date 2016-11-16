@@ -44,7 +44,7 @@ private:
 
     const glm::vec3 mBackgroundColor = glm::vec3(.01f, .01f, .015f);
     const glm::vec3 mAmbient = glm::vec3(.01f);
-    const glm::vec3 mSun = glm::normalize(glm::vec3(-.8f, 1, .5f));
+    const glm::vec3 mSun = glm::normalize(glm::vec3(-.8f, 1, .4f));
 
 };
 
