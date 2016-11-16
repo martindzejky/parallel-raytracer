@@ -9,7 +9,7 @@
 
 
 int main() {
-    auto window = Window::Create(600, 450, "Raytracer - OpenMP / MPI");
+    auto window = Window::Create(500, 400, "Raytracer - OpenMP / MPI");
     Shaders::CreateAndLoad();
     Texture::Create();
     auto quad = FullscreenQuad::Create();
