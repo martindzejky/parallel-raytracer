@@ -21,6 +21,7 @@ public:
 
     static std::shared_ptr<Texture> Create();
 
+    void UploadData();
     std::vector<float> &GetData();
 
     ~Texture();

@@ -1,13 +1,9 @@
-#include <iostream>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "Window.hpp"
 #include "Input.hpp"
 #include "Shaders.hpp"
 #include "Texture.hpp"
 #include "FullscreenQuad.hpp"
+#include "Raytracer.hpp"
 
 
 int main() {
@@ -15,6 +11,9 @@ int main() {
     Shaders::CreateAndLoad();
     Texture::Create();
     auto quad = FullscreenQuad::Create();
+
+    auto raytracer = Raytracer::Create();
+    raytracer->RenderOnTexture();
 
     while (true) {
         window->PollEvents();

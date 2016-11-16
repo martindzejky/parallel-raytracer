@@ -25,6 +25,7 @@ set(SOURCE_FILES
     Input.cpp
     Main.cpp
     Shaders.cpp
+    Raytracer.cpp
     Texture.cpp
     Window.cpp
     )

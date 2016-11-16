@@ -14,6 +14,14 @@ std::shared_ptr<Texture> Texture::Create() {
     return texture;
 }
 
+void Texture::UploadData() {
+    int width, height;
+    Window::GetSingleton()->GetSize(width, height);
+
+    glBindTexture(GL_TEXTURE_2D, mId);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, mData.data());
+}
+
 std::vector<float> &Texture::GetData() {
     return mData;
 }
@@ -33,20 +41,6 @@ void Texture::Load() {
     int width, height;
     Window::GetSingleton()->GetSize(width, height);
     mData.resize((unsigned long) (width * height * 3));
-
-    #pragma omp parallel for shared(mData)
-    for (auto i = 0; i < width * height; ++i) {
-        float u = (i % width) / (float) width;
-        float v = (i / width) / (float) height;
-
-        float r = 1 - v;
-        float g = u;
-        float b = v;
-
-        mData[i * 3 + 0] = r;
-        mData[i * 3 + 1] = g;
-        mData[i * 3 + 2] = b;
-    }
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, mData.data());
 }
