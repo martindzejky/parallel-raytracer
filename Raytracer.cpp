@@ -18,7 +18,7 @@ void Raytracer::RenderOnTexture(float time) const {
 
     auto &data = Texture::GetSingleton()->GetData();
 
-    #pragma omp parallel for shared(data)
+    #pragma omp parallel for default(shared)
     for (auto i = 0; i < width * height; ++i) {
         glm::vec2 uv((i % width) / (float) width, (i / width) / (float) height);
         glm::vec2 uvNorm((uv.x * 2 - 1) * width / height, uv.y * 2 - 1);

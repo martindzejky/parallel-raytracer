@@ -41,7 +41,7 @@ void Shaders::Load() {
     mFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     mProgram = glCreateProgram();
 
-    #pragma omp parallel sections shared(mVertexShader, mFragmentShader)
+    #pragma omp parallel sections default(shared)
     {
         #pragma omp section
         {
