@@ -3,7 +3,7 @@ project(Raytracer)
 
 # meta
 cmake_minimum_required(VERSION 3.6)
-set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-6")
+set(CMAKE_CXX_COMPILER "/usr/local/bin/mpicxx")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp")
 
 
@@ -11,6 +11,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp")
 find_package(OpenGL REQUIRED)
 include_directories(${OpenGL_INCLUDE_DIR})
 link_directories(${OpenGL_LIBRARY_DIRS})
+
+find_package(MPI REQUIRED)
+include_directories(${MPI_INCLUDE_DIR})
+link_directories(${MPI_LIBRARY_DIRS})
 
 # conan dependencies
 include(conanbuildinfo.cmake)
@@ -33,4 +37,4 @@ set(SOURCE_FILES
 
 # compile & link project
 add_executable(Raytracer ${SOURCE_FILES})
-target_link_libraries(Raytracer ${CONAN_LIBS} ${OPENGL_LIBRARY})
+target_link_libraries(Raytracer ${CONAN_LIBS} ${OPENGL_LIBRARY} ${MPI_LIBRARY})
