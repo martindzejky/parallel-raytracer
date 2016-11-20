@@ -45,16 +45,16 @@ int main(int argc, char** argv) {
         }
 
         auto timestamp = std::chrono::high_resolution_clock::now();
+        auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(timestamp - last).count();
+        last = timestamp;
+        std::cout << delta << "ms\n";
+
         raytracer->RenderOnTexture(
             std::chrono::duration_cast<std::chrono::milliseconds>(timestamp - start).count() / 1000.f);
 
         window->Clear();
         quad->Render();
         window->SwapBuffers();
-
-        auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(timestamp - last).count();
-        last = timestamp;
-        std::cout << delta << "ms\n";
     }
 
     MPI_Finalize();
