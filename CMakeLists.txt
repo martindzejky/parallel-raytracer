@@ -27,7 +27,9 @@ set(SOURCE_FILES
     FullscreenQuad.cpp
     Input.cpp
     Main.cpp
+    Master.cpp
     Shaders.cpp
+    Slave.cpp
     Raytracer.cpp
     Texture.cpp
     Window.cpp
