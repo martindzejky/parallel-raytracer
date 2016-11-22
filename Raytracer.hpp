@@ -22,16 +22,16 @@ public:
         BatteryCore
     };
 
+
 public:
 
     static std::shared_ptr<Raytracer> Create();
 
-    void RenderOnTexture(float time) const;
+    glm::vec3 TracePixel(const glm::vec2 &uv, float time) const;
 
 
 private:
 
-    glm::vec3 TracePixel(const glm::vec2 &uv, float time) const;
     void MakeRay(float time, const glm::vec2 &uvNorm, const glm::vec3 &cameraTarget, glm::vec3 &rayOrigin,
                      glm::vec3 &rayDirection) const;
     glm::vec3 ShootRay(float time, const glm::vec3 &rayOrigin, const glm::vec3 &rayDirection) const;

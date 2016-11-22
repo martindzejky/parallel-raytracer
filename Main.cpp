@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 
     if (rank == 0) {
         std::cout << "\nSTARTING MASTER\n\n";
-        Master::Create()->Run();
+        Master::Create()->Run(machineCount);
     }
     else {
         std::cout << "\nSTARTING SLAVE\n\n";

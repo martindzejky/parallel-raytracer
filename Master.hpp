@@ -14,7 +14,12 @@ public:
 
     static std::shared_ptr<Master> Create();
 
-    void Run();
+    void Run(unsigned int machineCount);
+
+
+private:
+
+    void BroadcastSlaveParts(unsigned int machineCount, int size);
 
 };
 

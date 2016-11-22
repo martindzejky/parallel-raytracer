@@ -12,27 +12,6 @@ std::shared_ptr<Raytracer> Raytracer::Create() {
     return raytracer;
 }
 
-void Raytracer::RenderOnTexture(float time) const {
-    int width, height;
-    Window::GetSingleton()->GetSize(width, height);
-
-    auto &data = Texture::GetSingleton()->GetData();
-
-    #pragma omp parallel for default(shared)
-    for (auto i = 0; i < width * height; ++i) {
-        glm::vec2 uv((i % width) / (float) width, (i / width) / (float) height);
-        glm::vec2 uvNorm((uv.x * 2 - 1) * width / height, uv.y * 2 - 1);
-
-        glm::vec3 color = TracePixel(uvNorm, time);
-
-        data[i * 3 + 0] = color.r;
-        data[i * 3 + 1] = color.g;
-        data[i * 3 + 2] = color.b;
-    }
-
-    Texture::GetSingleton()->UploadData();
-}
-
 glm::vec3 Raytracer::TracePixel(const glm::vec2 &uv, float time) const {
     glm::vec3 cameraTarget(0, .5f, 0);
     glm::vec3 rayOrigin;
