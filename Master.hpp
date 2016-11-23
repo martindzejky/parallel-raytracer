@@ -19,7 +19,9 @@ public:
 
 private:
 
-    void BroadcastSlaveParts(unsigned int machineCount, int size);
+    void BroadcastSlaveParts(unsigned int machineCount, int size, int width, int height);
+    void BroadcastExit(unsigned int machineCount);
+    void BroadcastTime(float time, unsigned int machineCount);
 
 };
 

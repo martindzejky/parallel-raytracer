@@ -16,6 +16,11 @@ public:
 
     void Run();
 
+
+private:
+
+    bool ShouldExit() const;
+
 };
 
 

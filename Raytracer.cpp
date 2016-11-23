@@ -1,10 +1,5 @@
 #include "Raytracer.hpp"
 
-#include <limits>
-
-#include "Window.hpp"
-#include "Texture.hpp"
-
 
 std::shared_ptr<Raytracer> Raytracer::Create() {
     auto raytracer = std::make_shared<Raytracer>();
