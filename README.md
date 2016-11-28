@@ -17,5 +17,5 @@ cd build
 cmake ..
 cmake --build .
 cd ..
-./build/bin/CrossThemLights
+./build/bin/Raytracer
 ```
