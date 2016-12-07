@@ -80,14 +80,16 @@ void Master::Run(unsigned int machineCount) {
                 data[i * 3 + 2] = incomingData[2];
             }
 
-            int doneFlag;
-            MPI_Status doneStatus;
-            MPI_Iprobe(MPI_ANY_SOURCE, (int) MessageType::Done, MPI_COMM_WORLD, &doneFlag, &doneStatus);
-            if (doneFlag) {
-                int doneData;
-                MPI_Recv(&doneData, 1, MPI_INT, doneStatus.MPI_SOURCE, (int) MessageType::Done, MPI_COMM_WORLD,
-                         MPI_STATUS_IGNORE);
-                ++machinesDone;
+            else {
+                int doneFlag;
+                MPI_Status doneStatus;
+                MPI_Iprobe(MPI_ANY_SOURCE, (int) MessageType::Done, MPI_COMM_WORLD, &doneFlag, &doneStatus);
+                if (doneFlag) {
+                    int doneData;
+                    MPI_Recv(&doneData, 1, MPI_INT, doneStatus.MPI_SOURCE, (int) MessageType::Done, MPI_COMM_WORLD,
+                             MPI_STATUS_IGNORE);
+                    ++machinesDone;
+                }
             }
         }
 
