@@ -11,10 +11,13 @@ Also make sure you have [g++](https://gcc.gnu.org/install/), [mpich](http://www.
 Go into the project directory and run:
 
 ```
+apt install python python-pip mpich
+pip install conan
+
 conan install --build missing
 mkdir build
 cd build
-cmake ..
+cmake .. -DCMAKE_CXX_COMPILER=`which mpicxx`
 cmake --build .
 cd ..
 ./build/bin/Raytracer
